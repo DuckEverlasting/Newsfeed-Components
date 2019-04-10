@@ -123,6 +123,34 @@
 .close-button:hover {
   background: #f5f5f5;
 }
+.submission {
+  display: flex;
+  max-width: 600px;
+  margin: 50px auto 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 2px lightgrey;
+}
+.submission h2 {
+  margin: 10px 0;
+}
+.submission p {
+  display: block;
+  margin: 10px 0;
+  padding: 0;
+}
+.submission textarea {
+  min-height: 200px;
+  min-width: 400px;
+  margin-bottom: 20px;
+}
+.submission input {
+  margin-bottom: 20px;
+}
 html,
 body {
   margin: 0;
