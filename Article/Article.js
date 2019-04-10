@@ -7,17 +7,34 @@ class Article {
     // create a reference to the ".expandButton" class. 
     this.expandButton = this.domElement.querySelector(".expandButton");
     // Using your expandButton reference, update the text on your expandButton to say "expand"
-    this.expandButton.textContent = "expand";
+    this.expandButton.textContent = "Click to Expand";
     // Set a click handler on the expandButton reference, calling the expandArticle method.
-    this.expandButton.addEventListener("click", this.expandArticle);
+    this.domElement.addEventListener("click", this.expandArticle);
+    this.closeButton = document.createElement("SPAN");
+    this.closeButton.textContent = "Mark as Read";
+    this.closeButton.classList.add("close-button");
+    console.log(domElement);
+    this.domElement.appendChild(this.closeButton);
+    this.closeButton.addEventListener("click", this.closeArticle);
+  };
+
+  expandArticle = (e) => {
+    // Using our reference to the domElement, toggle a class to expand or hide the article.
+    this.domElement.classList.toggle("article-open");
+    if (this.domElement.classList.contains("article-open")) {
+      this.expandButton.textContent = "Click to Close";
+    } else {
+      this.expandButton.textContent = "Click to expand";
+    }
+  };
+
+  closeArticle = (e) => {
+    this.domElement.style.display = "none";
+    e.stopPropagation();
   }
 
-  expandArticle = () => {
-    // Using our reference to the domElement, toggle a class to expand or hide the article.
-    console.log(this.domElement);
-    this.domElement.classList.toggle("article-open");
-  }
-}
+
+};
 
 /* START HERE: 
 
@@ -27,8 +44,60 @@ class Article {
 
 */
 
-let articles = document.querySelectorAll(".article");
-const articleMaker = function(content) {
+// STRETCH LET'S DO DIS
+
+let articleBuilder = function(data){
+  const articlesDiv = document.querySelector(".articles")
+
+  // Create Article div
+  let newArticle = document.createElement("div");
+  newArticle.classList.add("article", "inProgress");
+  articlesDiv.appendChild(newArticle);
+  let newArticleDOM = document.querySelector(".inProgress")
+
+  // Add title
+  let newArticleTitle = document.createElement("h2");
+  newArticleTitle.textContent = data.title;
+  newArticleDOM.appendChild(newArticleTitle);
+
+  // Add date
+  let newArticleDate = document.createElement("p");
+  newArticleDate.classList.add("date");
+  newArticleDate.textContent = data.date;
+  newArticleDOM.appendChild(newArticleDate);
+
+  // Add content
+  data.content.forEach (function(para) {
+    let newArticleContent = document.createElement("p");
+    newArticleContent.textContent = para;
+    newArticleDOM.appendChild(newArticleContent);
+
+  })
+
+  
+  newArticleDOM.classList.remove("inProgress")
+
+  // Add expand button
+  let newArticleExpandButton = document.createElement("span");
+  newArticleExpandButton.classList.add("expandButton");
+  newArticleDOM.appendChild(newArticleExpandButton);
+  
+}
+
+newArticleTest1 = {
+  "title": "A Reflection",
+  "date": "Jan 2nd, 2018",
+  "content": ["El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving gloves cardinal richelieu gentleman face broom, chevron driving gloves dis cardinal richelieu gentleman gent el snort handsome ron burgundy Leonine funny walk groucho marx Fallen eyebrow rock n roll star great dictator testosterone trophy face broom?", "El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving gloves cardinal richelieu gentleman face broom, chevron driving gloves dis cardinal richelieu gentleman gent el snort handsome ron burgundy Leonine funny walk groucho marx Fallen eyebrow rock n roll star great dictator testosterone trophy face broom?", "Fallen eyebrow rock n roll star great dictator testosterone trophy face broom!"],
+}
+
+articleBuilder(newArticleTest1);
+
+
+// END OF STRETCH GOAL YEAHHHHHH
+
+const articles = document.querySelectorAll(".article");
+
+const articleClassify = function(content) {
   new Article(content);
 }
-articles.forEach(articleMaker);
+articles.forEach(articleClassify);
