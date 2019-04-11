@@ -136,11 +136,11 @@
   box-shadow: 2px 2px 2px lightgrey;
 }
 .submission h2 {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .submission p {
   display: block;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 0;
 }
 .submission textarea {
@@ -148,7 +148,8 @@
   min-width: 400px;
   margin-bottom: 20px;
 }
-.submission input {
+.submission input,
+.submission button {
   margin-bottom: 20px;
 }
 html,

@@ -13,7 +13,6 @@ class Article {
     this.closeButton = document.createElement("SPAN");
     this.closeButton.textContent = "Mark as Read";
     this.closeButton.classList.add("close-button");
-    console.log(domElement);
     this.domElement.appendChild(this.closeButton);
     this.closeButton.addEventListener("click", this.closeArticle);
   };
@@ -44,6 +43,13 @@ class Article {
 
 */
 
+const articles = document.querySelectorAll(".article");
+
+const articleClassify = function(content) {
+  new Article(content);
+}
+articles.forEach(articleClassify);
+
 // STRETCH LET'S DO DIS
 
 let articleBuilder = function(data){
@@ -68,10 +74,9 @@ let articleBuilder = function(data){
 
   // Add content
   data.content.forEach (function(para) {
-    let newArticleContent = document.createElement("p");
-    newArticleContent.textContent = para;
-    newArticleDOM.appendChild(newArticleContent);
-
+    if (!para == "") {
+      newArticleDOM.appendChild(document.createElement("p")).textContent = para;
+    }
   })
 
   
@@ -81,23 +86,25 @@ let articleBuilder = function(data){
   let newArticleExpandButton = document.createElement("span");
   newArticleExpandButton.classList.add("expandButton");
   newArticleDOM.appendChild(newArticleExpandButton);
+
+  articleClassify(newArticleDOM);
   
 }
 
-newArticleTest1 = {
-  "title": "A Reflection",
-  "date": "Jan 2nd, 2018",
-  "content": ["El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving gloves cardinal richelieu gentleman face broom, chevron driving gloves dis cardinal richelieu gentleman gent el snort handsome ron burgundy Leonine funny walk groucho marx Fallen eyebrow rock n roll star great dictator testosterone trophy face broom?", "El snort testosterone trophy driving gloves handsome, dis el snort handsome gent testosterone trophy Fallen eyebrow driving gloves cardinal richelieu gentleman face broom, chevron driving gloves dis cardinal richelieu gentleman gent el snort handsome ron burgundy Leonine funny walk groucho marx Fallen eyebrow rock n roll star great dictator testosterone trophy face broom?", "Fallen eyebrow rock n roll star great dictator testosterone trophy face broom!"],
-}
+document.querySelector(".submit-button").addEventListener("click", articleSubmit)
 
-articleBuilder(newArticleTest1);
+let submission = {};
 
+function articleSubmit(event) {
+  event.preventDefault();
+  submission = {};
+  const arr = document.querySelectorAll(".input-data");
+  submission["title"] = arr[0].value;
+  submission["date"] = arr[1].value;
+  submission["content"] = arr[2].value.split('\n');
+  articleBuilder(submission);
+  submission = {};
+};
 
 // END OF STRETCH GOAL YEAHHHHHH
 
-const articles = document.querySelectorAll(".article");
-
-const articleClassify = function(content) {
-  new Article(content);
-}
-articles.forEach(articleClassify);
